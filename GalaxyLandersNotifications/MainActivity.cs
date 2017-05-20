@@ -12,7 +12,9 @@ namespace GalaxyLandersNotifications
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
-            // SetContentView (Resource.Layout.Main);
+            SetContentView (Resource.Layout.Main);
+
+            TextView tv = FindViewById<TextView>(Resource.Id.textView1);
         }
     }
 }
