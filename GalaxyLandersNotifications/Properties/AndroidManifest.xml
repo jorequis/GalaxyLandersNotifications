@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="GalaxyLandersNotifications.GalaxyLandersNotifications" android:versionCode="1" android:versionName="1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="GalaxyLandersNotifications.GalaxyLandersNotifications"
+          android:versionCode="1"
+          android:versionName="1.0">
   <uses-sdk android:minSdkVersion="16" />
-  <application android:label="GalaxyLandersNotifications" android:theme="@style/CustomTheme"></application>
+  <application
+    android:label="GalaxyLandersNotifications"
+    android:theme="@style/CustomTheme">
+  </application>
 </manifest>
