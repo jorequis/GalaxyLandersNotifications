@@ -5,32 +5,48 @@ using Android.OS;
 using Realms;
 
 using System.Linq;
+using System.Threading;
 
 namespace GalaxyLandersNotifications
 {
     [Activity(Label = "GalaxyLandersNotifications", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        private static TextView logTextView;
+        public delegate void LogDelegate(string log);
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView (Resource.Layout.Main);
 
-            TextView tv = FindViewById<TextView>(Resource.Id.textView1);
-            Realm realm = Realm.GetInstance();
+            logTextView = FindViewById<TextView>(Resource.Id.textView1);
+            logTextView.Text = "";
+            
+            new Thread(Loop).Start();
+            new Thread(new Server((s) => { Log(s); }).Start).Start();
+        }
 
-            var userJorge =realm.All<User>().Where(u => u.Name.Equals("Jorge"));
-            if (userJorge.Count() >= 1)
-                tv.Text = "Encontrao";
-            else
+        public void Loop()
+        {
+            Realm realm = Realm.GetInstance();
+            
+            while (true)
             {
-                realm.Write(() =>
+                RunOnUiThread(() =>
                 {
-                    User u = new User { Name = "Jorge" };
-                    realm.Add(u);
                 });
-                tv.Text = "Agregao";
+                
+                Thread.Sleep(500);
             }
+        }
+
+        private void Log(string log)
+        {
+            RunOnUiThread(() =>
+            {
+                logTextView.Text += log;
+            });
         }
     }
 }

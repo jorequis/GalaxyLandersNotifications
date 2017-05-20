@@ -75,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Notification.cs" />
+    <Compile Include="Server.cs" />
     <Compile Include="User.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

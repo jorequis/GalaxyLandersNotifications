@@ -2,9 +2,8 @@
 
 namespace GalaxyLandersNotifications
 {
-    class User : RealmObject
+    class Notification : RealmObject
     {
-        public string Name { get; set; }
         public string Token { get; set; }
     }
 }
