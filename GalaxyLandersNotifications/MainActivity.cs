@@ -45,7 +45,7 @@ namespace GalaxyLandersNotifications
         {
             RunOnUiThread(() =>
             {
-                logTextView.Text += log;
+                logTextView.Text += log + "\n";
             });
         }
     }
