@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="GalaxyLandersNotifications.GalaxyLandersNotifications"
+          package="com.jorequis.GalaxyLandersServer"
           android:versionCode="1"
           android:versionName="1.0">
   <uses-sdk android:minSdkVersion="16" />
   <application
-    android:label="GalaxyLandersNotifications"
+    android:label="GalaxyLandersServer"
     android:theme="@style/CustomTheme">
   </application>
 </manifest>

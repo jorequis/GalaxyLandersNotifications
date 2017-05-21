@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace GalaxyLandersNotifications
 {
-    [Activity(Label = "GalaxyLandersNotifications", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "GalaxyLandersServer", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         private static TextView logTextView;
