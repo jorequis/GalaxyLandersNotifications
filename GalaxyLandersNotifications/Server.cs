@@ -23,28 +23,23 @@ namespace GalaxyLandersNotifications
         public Server(MainActivity.LogDelegate logDelegate)
         {
             this.logDelegate = logDelegate;
+            new Thread(Start).Start();
         }
 
         public void Start()
         {
-            byte[] ByRec;
-            string logText = "";
-
-            Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint IP_PORT = new IPEndPoint(IPAddress.Any, 8999);
-
+            Log("Start");
             try
             {
-                Log("Starting socket...");
-                serverSocket.Bind(IP_PORT);
-                serverSocket.Listen(int.MaxValue - 1);
-                Log("Listening on port: " + IP_PORT.Address + " " + IP_PORT.Port);
-                Log("=============================================");
-
+                byte[] ByRec;
+                Log("Starting TCP Listener...");
+                TcpListener serverSocket = new TcpListener(IPAddress.Any, 8999);
+                serverSocket.Start(int.MaxValue - 1);
+                Log("Listening on port: " + ((IPEndPoint)serverSocket.LocalEndpoint).Port);
+                Log("──────────────────────────────────────────────────"); // └ ┴ ┬ ├ ─ ┼ ┘ ┌ ┐ │ ┤
                 while (true)
                 {
-                    Socket conexionSocket = serverSocket.Accept();
-                    Log("Conected");
+                    Socket conexionSocket = serverSocket.AcceptSocket();
 
                     string receivedText = "";
                     ByRec = new byte[255];
@@ -58,7 +53,7 @@ namespace GalaxyLandersNotifications
             }
             catch (Exception error)
             {
-                logText += "\n\nError: " + error.ToString() + "\n\n";
+                Log("\n\nError: " + error.ToString() + "\n\n");
             }
         }
 
@@ -77,6 +72,7 @@ namespace GalaxyLandersNotifications
             Funciones func = (Funciones) int.Parse(argv[0]);
             string userName = argv[1];
 
+            string logText = "";
             switch (func)
             {
                 case Funciones.GetToken:
@@ -95,11 +91,12 @@ namespace GalaxyLandersNotifications
                     break;
             }
 
-            Log("Funtion: " + func.ToString());
-            Log("From: " + userName);
+            logText += "User: " + userName + "\n";
+            logText += func.ToString() + ": ";
             for (int i = 2; i < argv.Length; i++)
-                Log("Arg" + (i - 1) + ": " + argv[i]);
-            Log("=============================================");
+                logText += argv[i] + " ";
+            Log(logText);
+            Log("──────────────────────────────────────────────────"); // └ ┴ ┬ ├ ─ ┼ ┘ ┌ ┐ │ ┤
 
             /*NotificacionLanderUpgrade NoResponse Args: username, landername, time
             NotificacionMissionStart NoResponse Args: username, missionname, time

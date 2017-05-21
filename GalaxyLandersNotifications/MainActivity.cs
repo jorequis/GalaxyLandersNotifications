@@ -6,6 +6,7 @@ using Realms;
 
 using System.Linq;
 using System.Threading;
+using Android.Text.Method;
 
 namespace GalaxyLandersNotifications
 {
@@ -13,6 +14,7 @@ namespace GalaxyLandersNotifications
     public class MainActivity : Activity
     {
         private static TextView logTextView;
+        private static ScrollView scrollView;
         public delegate void LogDelegate(string log);
 
         protected override void OnCreate(Bundle bundle)
@@ -20,11 +22,12 @@ namespace GalaxyLandersNotifications
             base.OnCreate(bundle);
             SetContentView (Resource.Layout.Main);
 
+            scrollView = FindViewById<ScrollView>(Resource.Id.scrollView1);
             logTextView = FindViewById<TextView>(Resource.Id.textView1);
             logTextView.Text = "";
-            
+
             new Thread(Loop).Start();
-            new Thread(new Server((s) => { Log(s); }).Start).Start();
+            new Server((s) => { Log(s); });
         }
 
         public void Loop()
@@ -43,7 +46,8 @@ namespace GalaxyLandersNotifications
         {
             RunOnUiThread(() =>
             {
-                logTextView.Text += log + "\n";
+                logTextView.Append(log + "\n");
+                scrollView.Post(() => { scrollView.FullScroll(Android.Views.FocusSearchDirection.Down); });
             });
         }
     }
