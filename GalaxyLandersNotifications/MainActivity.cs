@@ -30,13 +30,11 @@ namespace GalaxyLandersNotifications
         public void Loop()
         {
             Realm realm = Realm.GetInstance();
-            
+            var notifications = realm.All<Notification>();
+
             while (true)
             {
-                RunOnUiThread(() =>
-                {
-                });
-                
+                realm.Refresh();
                 Thread.Sleep(500);
             }
         }

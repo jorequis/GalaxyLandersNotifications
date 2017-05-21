@@ -12,6 +12,7 @@ using Android.Widget;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using Realms;
 
 namespace GalaxyLandersNotifications
 {
@@ -70,6 +71,7 @@ namespace GalaxyLandersNotifications
 
         public void Process(string a)
         {
+            Realm realm = Realm.GetInstance(); 
             string[] argv = a.Split('/');
 
             Funciones func = (Funciones) int.Parse(argv[0]);
